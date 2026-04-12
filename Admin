@@ -1,0 +1,11 @@
+class Admin extends User {
+
+    public Admin(String username, String pass) {
+        super(username, pass);
+    }
+
+    @Override
+    public void displayinfo() {
+        System.out.println("Admin: " + username);
+    }
+}
