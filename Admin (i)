@@ -1,0 +1,78 @@
+package acemeterysystem;
+
+import java.util.Scanner;
+
+class Admin extends User {
+
+    public Admin(String username, String pass) {
+        super(username, pass);
+    }
+
+    @Override
+    public void displayinfo() {
+        System.out.println("Admin: " + username);
+    }
+
+    // APPROVE DECEASED
+    public void approveDeceased(char[][] gravePlot, char[] plotLetter, int[] plotNo) {
+
+        Scanner input = new Scanner(System.in);
+
+        Deceased.loadFromFile();
+
+        for (int i = 0; i < Deceased.getList().size(); i++) {
+
+            Deceased d = Deceased.getList().get(i);
+
+            System.out.println("\nDeceased #" + (i + 1));
+            System.out.println("Name: " + d.getName());
+
+            if (d.isPaid()) {
+
+                System.out.print("Approve this deceased? (Y/N): ");
+                String choice = input.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+
+                    d.setApproved(true);
+                    System.out.println("Approved by Admin: " + username);
+
+                    assignPlot(gravePlot, plotLetter, plotNo, d);
+
+                } else {
+                    System.out.println("Not approved.");
+                }
+
+            } else {
+                System.out.println("Not approved. Payment not made.");
+            }
+        }
+
+        Deceased.saveToFile();
+    }
+
+    // ASSIGN PLOT
+    public void assignPlot(char[][] gravePlot, char[] plotLetter, int[] plotNo, Deceased d) {
+
+        Scanner input = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("Select plot (1A...5E): ");
+            String pick = input.nextLine().toUpperCase();
+
+            int row = pick.charAt(0) - '1';
+            int col = pick.charAt(1) - 'A';
+
+            if (gravePlot[row][col] == 'O') {
+                gravePlot[row][col] = 'X';
+
+                d.setPlot(pick.charAt(0), pick.charAt(1));
+
+                System.out.println("Plot assigned successfully.");
+                break;
+            } else {
+                System.out.println("Plot already occupied.");
+            }
+        }
+    }
+}
