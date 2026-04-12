@@ -1,27 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
-package jnazah;//blh tukar lain
-
-/**
- *
- * @author Lenovo
- */
+package cemeterySystem;
 import java.util.*;
 import java.io.*;
 
 public class Deceased {
     //make the array list have no limit
-    private static ArrayList<Deceased> deceasedList = new ArrayList<>();
+    private static ArrayList<DeceasedDetails> deceasedList = new ArrayList<>();
     private static Scanner input = new Scanner(System.in);
     private static final String FILE_NAME = "addDeceased.txt";
-    
-  /* public static void main(String[] args) {
-        loadFromFile();
-        addDeceased();
-    //coding for addDeceased
-   }*/
+ 
     public static void addDeceased(){
         System.out.println("--- Application For Plot Burial ---");
         
@@ -46,8 +32,8 @@ public class Deceased {
         System.out.print("Heir Phone (without '-'): "); 
         String hPhone = input.nextLine();
 
-        // Instantiate new object and add to the list
-        deceasedList.add(new Deceased(name, ic, gen, dob, dod, hName, hPhone));
+        // new object and add to the list
+        deceasedList.add(new DeceasedDetails(name, ic, gen, dob, dod, hName, hPhone));
 
         System.out.println("To proceed with the application, please make a payment of RM80");
         System.out.println("Have you made the payment? (yes/no)");
@@ -64,7 +50,7 @@ public class Deceased {
     public static void saveToFile() {
         try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_NAME))) {
             for (int i = 0; i < deceasedList.size(); i++) {
-                Deceased d = deceasedList.get(i);
+                DeceasedDetails d = deceasedList.get(i);
                 pw.println(d.toFileFormat());
             }
             System.out.println("Data successfully updated in file.");
@@ -85,7 +71,7 @@ public class Deceased {
                 String[] p = line.split(",");
                 if (p.length == 7) { //check if the information is complete
                     // Rebuild the object and add to list
-                    deceasedList.add(new Deceased(p[0], p[1], p[2], p[3], p[4], p[5], p[6]));
+                    deceasedList.add(new DeceasedDetails(p[0], p[1], p[2], p[3], p[4], p[5], p[6]));
                 }
                 else
                     System.out.println("Your information is incomplete, please try again.");
@@ -95,22 +81,3 @@ public class Deceased {
         }
     }          
 }
-
-
-
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
