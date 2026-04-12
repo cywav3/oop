@@ -1,0 +1,77 @@
+//untuk user
+
+public class User {
+    
+    //use protected instead of privtae so that any other class can access this variable
+    protected String username;
+    protected String pass;
+
+    static User[] users = new User[100];
+    static int count = 0;
+
+    public User(String username, String pass) {
+        this.username = username;
+        this.pass = pass;
+    }
+    
+    public void setusername(String username)
+    {
+        this.username = username;
+    }
+    
+    public void setpass(String pass){
+        this.pass = pass;
+    }
+
+    public String getusername()
+    {
+        return username;
+    }
+    
+    public String getpass()
+    {
+        return pass;
+    }
+    
+    //for signup 
+    public static void signup(String username, String pass, String role) {
+
+        if (role.equals("guardian")) 
+        {
+            users[count] = new Guardian(username, pass); 
+            count++;
+            System.out.println("Registration successful!");
+        }
+        else if (role.equals("admin"))
+        {
+            users[count] = new Admin(username, pass);
+            count++;
+            System.out.println("Registration successful!");
+        }
+        else if (role.equals("user"))
+        {
+            users[count] = new User(username, pass);
+            count++;
+            System.out.println("Registration successful!");
+        }
+    }
+
+    //for login
+    public static User login(String username, String pass) {
+
+        for (int i = 0; i < count; i++) {
+            if (users[i].username.equals(username) && users[i].pass.equals(pass)) {
+                System.out.println("Login successful!");
+                return users[i];
+            }
+        }
+
+        System.out.println("Login failed!");
+        return null;
+    }
+
+    
+    public void displayinfo() {
+        System.out.println("User: " + username);
+    }
+}
