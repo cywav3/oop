@@ -1,0 +1,38 @@
+import java.util.Scanner;
+
+public class main {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        // signup
+        System.out.print("Enter name: ");
+        String username = input.nextLine();
+
+        System.out.print("Enter ID: ");
+        String pass = input.next();
+
+        System.out.print("Enter role (admin/guardian/user): ");
+        String role = input.nextLine();
+
+        User.signup(username, pass, role);
+
+        // login
+        System.out.println("\n Login");
+        System.out.println("-------------------");
+
+        System.out.print("Enter username: ");
+        String usernamelogin = input.nextLine();
+
+        System.out.print("Enter pass: ");
+        String passlogin = input.next();
+
+        User user = User.login(usernamelogin, passlogin);
+
+        //display user info whether they are admin, user, or guarduan
+        if (user != null) {
+            user.displayinfo();
+        }
+    }
+}
