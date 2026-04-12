@@ -1,11 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package jnazah;//ni x pasti package apa
-
-
- 
+package cemeterySystem;
 public class DeceasedDetails {
     protected String name;
     protected String ic;
@@ -15,7 +8,7 @@ public class DeceasedDetails {
     protected String heirName;
     protected String heirPhone; //protected just in case want to use it elsewhere
 
-    public Deceased(String name, String ic, String gender, String dob, 
+    public DeceasedDetails(String name, String ic, String gender, String dob, 
                     String dod, String heirName, String heirPhone) {
         this.name = name;
         this.ic = ic;
@@ -30,4 +23,3 @@ public class DeceasedDetails {
         return name + "," + ic + "," + gender + "," + dob + "," + dod + "," + heirName + "," + heirPhone;
     }
 }
-
