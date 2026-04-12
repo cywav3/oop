@@ -1,0 +1,11 @@
+class Guardian extends User {
+
+    public Guardian(String username, String pass) {
+        super(username, pass);
+    }
+
+    @Override
+    public void displayinfo() {
+        System.out.println("Guardian: " + username);
+    }
+}
