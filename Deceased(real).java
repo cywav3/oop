@@ -17,11 +17,11 @@ public class Deceased {
     private static Scanner input = new Scanner(System.in);
     private static final String FILE_NAME = "addDeceased.txt";
     
-   public static void main(String[] args) {
+  /* public static void main(String[] args) {
         loadFromFile();
         addDeceased();
     //coding for addDeceased
-   }
+   }*/
     public static void addDeceased(){
         System.out.println("--- Application For Plot Burial ---");
         
