@@ -1,4 +1,9 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package cemeterySystem;
+
 public class DeceasedDetails {
     protected String name;
     protected String ic;
@@ -19,7 +24,37 @@ public class DeceasedDetails {
         this.heirPhone = heirPhone;
     }
 
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public String getIc() {
+        return ic;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public String getDod() {
+        return dod;
+    }
+
+    public String getHeirName() {
+        return heirName;
+    }
+
+    public String getHeirPhone() {
+        return heirPhone;
+    }
+    
     public String toFileFormat() { //format to display in file
         return name + "," + ic + "," + gender + "," + dob + "," + dod + "," + heirName + "," + heirPhone;
     }
 }
+
