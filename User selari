@@ -1,0 +1,92 @@
+//author: Imtiyaz
+package acemeterysystem;
+public class User {
+    
+    //use protected instead of private so that any other class can access this variable
+    protected String username;
+    protected String pass;
+
+    static User[] users = new User[100];
+    static int count = 0;
+
+    public User(String username, String pass) {
+        this.username = username;
+        this.pass = pass;
+    }
+    
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+    
+    public void setPass(String pass){
+        this.pass = pass;
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+    
+    public String getPass()
+    {
+        return pass;
+    }
+    
+    //for signup 
+    public static void signup(String username, String pass, String role) {
+
+        switch (role.toLowerCase()) {
+            case "guardian":
+                users[count++] = new Guardian(username, pass);
+                break;
+            case "admin":
+                users[count++] = new Admin(username, pass);
+                break;
+            case "visitor":
+                users[count++] = new Visitors(username, pass);
+                break;
+            default:
+                users[count++] = new User(username, pass);
+                break;
+        }
+        System.out.println("Registration successful!");
+        /*if (role.equals("guardian")||role.equals("GUARDIAN")) 
+        {
+            users[count] = new Guardian(username, pass); 
+            count++;
+            System.out.println("Registration successful!");
+        }
+        else if (role.equals("admin"))
+        {
+            users[count] = new Admin(username, pass);
+            count++;
+            System.out.println("Registration successful!");
+        }
+        else if (role.equals("user"))
+        {
+            users[count] = new User(username, pass);
+            count++;
+            System.out.println("Registration successful!");
+        }*/
+    }
+
+    //for login
+    public static User login(String username, String pass) {
+
+        for (int i = 0; i < count; i++) {
+            if (users[i].username.equals(username) && users[i].pass.equals(pass)) {
+                System.out.println("Login successful!");
+                return users[i];
+            }
+        }
+
+        System.out.println("Login failed!");
+        return null;
+    }
+
+    
+    public void displayInfo() {
+        System.out.println("User: " + username);
+    }
+}
