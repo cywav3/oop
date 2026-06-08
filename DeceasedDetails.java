@@ -11,10 +11,11 @@ public class DeceasedDetails {
     protected String dob;
     protected String dod;
     protected String heirName;
-    protected String heirPhone; //protected just in case want to use it elsewhere
+    protected String heirPhone;
+    private String owner;//protected just in case want to use it elsewhere
 
     public DeceasedDetails(String name, String ic, String gender, String dob, 
-                    String dod, String heirName, String heirPhone) {
+                    String dod, String heirName, String heirPhone, String owner) {
         this.name = name;
         this.ic = ic;
         this.gender = gender;
@@ -22,6 +23,7 @@ public class DeceasedDetails {
         this.dod = dod; 
         this.heirName = heirName;
         this.heirPhone = heirPhone;
+        this.owner = owner;
     }
 
     // Getters
@@ -53,8 +55,12 @@ public class DeceasedDetails {
         return heirPhone;
     }
     
+    public String getOwner() {
+        return owner;
+    }
+    
     public String toFileFormat() { //format to display in file
-        return name + "," + ic + "," + gender + "," + dob + "," + dod + "," + heirName + "," + heirPhone;
+        return name + "," + ic + "," + gender + "," + dob + "," + dod + "," + heirName + "," + heirPhone + "," + owner;
     }
 }
 
