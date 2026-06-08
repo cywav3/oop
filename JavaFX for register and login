@@ -1,0 +1,193 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package cemeteryproejct;
+
+/**
+ *
+ * @author USER
+ */
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
+
+public class javafxregister extends Application{
+    
+    private String username;
+    private String password;
+    private Stage stage;
+
+    private Scene rolescene;
+    private Scene loginscene;
+    private Scene registerscene;
+
+    @Override
+    public void start(Stage stage) {
+        this.stage = stage;
+
+        rolescene();
+        login();
+        registers();
+
+        stage.setTitle("Registration page");
+        stage.setScene(rolescene);
+        stage.show();
+        
+        
+    }
+
+    public void rolescene(){
+        Label roleTitle =new Label ("Select role");
+
+        Button adminbtn = new Button("Admin");
+        Button guardianbtn = new Button("Guardian");
+        Button visitorbtn = new Button("Visitor");
+
+        VBox rolelayout = new VBox(15);
+        rolelayout.setAlignment(Pos.CENTER);
+        rolelayout.getChildren().addAll(roleTitle, adminbtn, guardianbtn, visitorbtn);
+        guardianbtn.setOnAction(e -> {
+            stage.setScene(loginscene);
+        });
+
+
+        rolescene = new Scene (rolelayout,400,300);
+    }
+
+    public void login(){
+        Label logintitle = new Label ("Guardian Login");
+        
+        Label name = new Label("username: ");
+        TextField usernamefield = new TextField();
+        usernamefield.setPromptText("Enter username:");
+        usernamefield.setPrefWidth(200);
+        
+        HBox userBox = new HBox(10);
+        userBox.setAlignment(Pos.CENTER);
+        userBox.getChildren().addAll(name, usernamefield);
+        
+        Label pw = new Label("password: ");
+        PasswordField passwordfield = new PasswordField();
+        passwordfield.setPromptText("Enter password:");
+        passwordfield.setPrefWidth(200);
+        
+        HBox passBox = new HBox(10);
+        passBox.setAlignment(Pos.CENTER);
+        passBox.getChildren().addAll(pw, passwordfield);
+        
+        Button loginbtn = new Button("Login");
+        Button registerbtn = new Button("Register"); //register button page 
+        
+        Label loginmessage = new Label();
+        
+        registerbtn.setOnAction(e -> {
+            stage.setScene(registerscene);
+        });
+        
+        
+        loginbtn.setOnAction(e -> {
+
+            String usernamefill = usernamefield.getText();
+            String passwordfill = passwordfield.getText();
+
+            if (usernamefill.equals(username) && passwordfill.equals(password)) {
+                loginmessage.setText("Login Successful!");
+            } else {
+                loginmessage.setText("Invalid Username or Password.");
+            }
+        });
+        
+        VBox loginLayout = new VBox(10);
+        loginLayout.setAlignment(Pos.CENTER);
+        loginLayout.getChildren().addAll(logintitle, userBox, passBox, loginbtn,registerbtn,loginmessage);
+        
+        loginscene = new Scene(loginLayout,400,350);
+    }    
+        
+        
+    public void registers(){    
+        Label registertitle = new Label ("Register");
+        Label registermessage = new Label();
+        
+        Label regname = new Label("username: ");
+        TextField regusername = new TextField();
+        regusername.setPromptText("enter username");
+        regusername.setPrefWidth(200);
+        
+        HBox nameBox = new HBox(10);
+        nameBox.setAlignment(Pos.CENTER);
+        nameBox.getChildren().addAll(regname, regusername);
+        
+        Label regpw = new Label("password: ");
+        PasswordField regpassword = new PasswordField();
+        regpassword.setPromptText("enter password");
+        regpassword.setPrefWidth(200);
+
+        HBox regpassBox = new HBox(10);
+        regpassBox.setAlignment(Pos.CENTER);
+        regpassBox.getChildren().addAll(regpw, regpassword);
+        
+        Label regconfirm = new Label("confirm password: ");
+        PasswordField confirmpassword = new PasswordField();
+        confirmpassword.setPromptText("confirm password");
+        confirmpassword.setPrefWidth(200);
+        
+        HBox confirmBox = new HBox(10);
+        confirmBox.setAlignment(Pos.CENTER);
+        confirmBox.getChildren().addAll(regconfirm, confirmpassword);
+        
+        Button submitbtn = new Button("Submit");
+        Button backbtn = new Button("Back");
+        
+        submitbtn.setOnAction(e -> {
+            String usernamefill = regusername.getText();
+            String passwordfill = regpassword.getText();
+            String confirmfill = confirmpassword.getText();
+            
+            
+            if (usernamefill.isEmpty() || passwordfill.isEmpty()) {
+                registermessage.setText("Please fill all fields.");
+            } else if (!passwordfill.equals(confirmfill)) {
+                registermessage.setText("Passwords do not match.");
+            } else {
+                username = usernamefill;
+                password = passwordfill;
+
+                registermessage.setText("Registration Successful!");
+            }
+        });
+        
+        backbtn.setOnAction(e -> {
+            stage.setScene(loginscene);
+        });
+        
+        VBox registerlayout = new VBox(10);
+        registerlayout.setAlignment(Pos.CENTER);
+        registerlayout.getChildren().addAll(registertitle,nameBox,regpassBox,confirmBox,submitbtn,registermessage);
+
+        registerscene = new Scene(registerlayout, 400,400);
+        
+        
+    }    
+        
+    
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
