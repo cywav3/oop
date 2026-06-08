@@ -97,8 +97,8 @@ public class JavaFXApp extends Application {
                     txtHeirPhone.getText()
             );
 
-            Jnazah.addDeceased(d);
-            Jnazah.saveToFile();
+            Deceased.addDeceased(d);
+            Deceased.saveToFile();
 
             lblStatus.setText("Saved successfully!");
         });
