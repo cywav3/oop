@@ -1,0 +1,18 @@
+package acemeterysystem;
+
+/**
+ *
+ * @author yana
+ */
+public class Visitors extends User{
+
+    public Visitors(String username, String pass)
+    {
+        super(username, pass);
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.print("Visitor: " + username);
+    }
+}
