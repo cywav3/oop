@@ -1,0 +1,98 @@
+package acemeterysystem;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.*;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class ApprovalGui {
+
+    public void start(Stage stage) {
+
+        Label title = new Label("Approve List");
+
+        TableView<Deceased> table = new TableView<>();
+
+        TableColumn<Deceased, String> nameCol =new TableColumn<>("Guardian Name");
+
+        nameCol.setCellValueFactory(
+            data -> new SimpleStringProperty(
+                    data.getValue().getName()
+            )
+        );
+
+        TableColumn<Deceased, String> paymentCol =new TableColumn<>("Payment");
+
+        paymentCol.setCellValueFactory(
+                data -> new SimpleStringProperty(
+                        data.getValue().isPaid()? "Paid": "Not Paid"
+                )
+        );
+
+        table.getColumns().addAll(nameCol, paymentCol);
+
+        Deceased.loadFromFile();
+
+        ObservableList<Deceased> data =FXCollections.observableArrayList(Deceased.getList());
+
+        table.setItems(data);
+
+        Button openButton =new Button("Open Selected");
+
+        // Disabled until a row is selected
+        openButton.setDisable(true);
+
+        Label statusLabel = new Label();
+
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+
+                 if (newVal == null) {
+                     openButton.setDisable(true);
+                 } else {
+                     openButton.setDisable(false);
+                 }
+        });
+
+        openButton.setOnAction(e -> {
+
+            Deceased selected =table.getSelectionModel().getSelectedItem();
+
+            if (selected == null) {
+                statusLabel.setText("Please select a guardian." );
+                return;
+            }
+
+            if (!selected.isPaid()) {
+                statusLabel.setText("Payment has not been made.");
+                return;
+            }
+
+            statusLabel.setText( "Opening plot assignment...");
+
+            AssignPlotGui plot =new AssignPlotGui(selected.getName());
+
+            try {
+                plot.start(new Stage());
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        VBox root = new VBox(
+                10,
+                title,
+                table,
+                openButton,
+                statusLabel
+        );
+
+        Scene scene =new Scene(root, 600, 400);
+
+        stage.setTitle("Approval List");
+        stage.setScene(scene);
+        stage.show();
+    }
+}
