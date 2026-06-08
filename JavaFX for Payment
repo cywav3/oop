@@ -1,0 +1,152 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import java.io.File;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+public class PaymentUI extends Application {
+
+
+    @Override
+    public void start(Stage stage) {
+
+        Label title = new Label("Payment");
+        title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold;");
+
+        Label instruction1 = new Label("To proceed with application,");
+
+        Label instruction2 = new Label("please make payment of RM 80");
+
+        // QR Pay
+        Rectangle qrBox = new Rectangle(150, 150);
+        qrBox.setStyle("-fx-fill:white; -fx-stroke:black;");
+
+        Label qrLabel = new Label("QR CODE");
+
+        StackPane qrPane = new StackPane(qrBox, qrLabel);
+
+        Label orLabel = new Label("OR");
+        orLabel.setStyle("-fx-font-size:18px;");
+
+        // Account Number
+        Label accountLabel = new Label("Account Number:");
+        
+        Label accountNumber = new Label("1234567890");
+
+        // Recipient Name
+        Label recipientLabel = new Label("Recipient Name:");
+
+        TextField recipientField = new TextField();
+
+        // Upload File
+        Label uploadLabel = new Label("Upload Receipt");
+
+        TextField fileField = new TextField();
+        fileField.setEditable(false);
+
+        Button browseBtn = new Button("Browse");
+
+        browseBtn.setOnAction(e -> {
+
+            FileChooser chooser = new FileChooser();
+
+            chooser.setTitle("Choose Receipt");
+
+            File file = chooser.showOpenDialog(stage);
+
+            if(file != null){
+                file.getAbsolutePath();
+                fileField.setText(file.getName());
+            }
+        });
+
+        HBox uploadBox = new HBox(10, fileField, browseBtn);
+
+        // Buttons
+        Button cancelBtn = new Button("Cancel");
+
+        Button requestBtn = new Button("Request");
+
+        cancelBtn.setPrefWidth(100);
+        requestBtn.setPrefWidth(100);
+
+        HBox buttonBox = new HBox(20, cancelBtn, requestBtn);
+                      
+        buttonBox.setAlignment(Pos.CENTER);
+
+        cancelBtn.setOnAction(e -> {
+            recipientField.clear();
+            fileField.clear();
+        });
+
+        requestBtn.setOnAction(e -> {
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            alert.setTitle("Payment Request");
+
+            alert.setContentText(
+                    "Account Number: 1234567890"
+                            + "\nRecipient Name: "
+                            + recipientField.getText()
+                            + "\nReceipt Uploaded: "
+                            + fileField.getText()
+            );
+
+            alert.showAndWait();
+        });
+
+        GridPane form = new GridPane();
+
+        form.setVgap(15);
+        form.setHgap(10);
+        
+        form.add(accountLabel, 0, 0);
+        form.add(accountNumber, 1, 0);
+
+        form.add(recipientLabel,0,1);
+        form.add(recipientField,1,1);
+
+        VBox paymentBox = new VBox(15);
+
+        paymentBox.setAlignment(Pos.CENTER);
+
+        paymentBox.getChildren().addAll(
+                instruction1,
+                instruction2,
+                qrPane,
+                orLabel,
+                form,
+                uploadLabel,
+                uploadBox,
+                buttonBox
+        );
+
+        paymentBox.setPadding(new Insets(30));
+
+        paymentBox.setStyle("-fx-border-color:black;" + "-fx-border-width:1;");
+
+        VBox root = new VBox(20);
+
+        root.setAlignment(Pos.CENTER);
+
+        root.setPadding(new Insets(20));
+
+        root.getChildren().addAll(title, paymentBox);
+
+        Scene scene = new Scene(root, 700, 650);
+
+        stage.setTitle("Online Payment System");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+}
