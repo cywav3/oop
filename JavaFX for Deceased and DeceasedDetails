@@ -50,6 +50,9 @@ public class JavaFXApp extends Application {
         Label lblHeirPhone = new Label("Heir Phone:");
         TextField txtHeirPhone = new TextField();
 
+        Label lblOwner = new Label("Owner name:");
+        TextField txtOwner = new TextField();
+
         Button btnSubmit = new Button("Submit");
         Button btnCancel = new Button("Cancel");
         HBox hbBtn = new HBox(10); //to display button side by side
@@ -76,6 +79,9 @@ public class JavaFXApp extends Application {
         grid.add(lblHeirPhone, 0, 7);
         grid.add(txtHeirPhone, 1, 7);
 
+        grid.add(lblOwner, 0 , 6);
+        grid.add(txtOwner,1,6);
+
         Label lblStatus = new Label();
        
         grid.add(hbBtn, 1, 8);
@@ -94,7 +100,8 @@ public class JavaFXApp extends Application {
                     txtDOB.getText(),
                     txtDOD.getText(),
                     txtHeirName.getText(),
-                    txtHeirPhone.getText()
+                    txtHeirPhone.getText(),
+                    txtOwner.getText()
             );
 
             Deceased.addDeceased(d);
@@ -113,6 +120,7 @@ public class JavaFXApp extends Application {
         txtDOD.clear();
         txtHeirName.clear();
         txtHeirPhone.clear();
+        txtOwner.clear();
         
         lblStatus.setText("All info is cleared");
         }
