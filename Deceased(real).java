@@ -2,16 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package cemeterySystem;
+package cemeterysystem;
 
 import java.util.*;
 import java.io.*;
 
-public class Deceased {
+public class Deceased extends DeceasedDetails {
     //make the array list have no limit
     private static ArrayList<Deceased> deceasedList = new ArrayList<>();
     private static final String FILE_NAME = "addDeceased.txt";
         
+    public Deceased(String name, String ic, String gender,
+                    String dob, String dod,
+                    String heirName, String heirPhone) {
+
+        super(name, ic, gender, dob, dod, heirName, heirPhone);
+    }
+    
     public static void addDeceased(Deceased d) { //store data
         deceasedList.add(d);
     }
