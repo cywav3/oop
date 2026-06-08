@@ -1,0 +1,123 @@
+package acemeterysystem;
+
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class AssignPlotGui {
+
+    private String guardianName;
+
+    public AssignPlotGui(String guardianName) {
+        this.guardianName =guardianName;
+    }
+
+    public void start(Stage stage) {
+
+        Label title =new Label("JANNATUL BAQI");
+
+        Label name = new Label("Guardian: "+ guardianName);
+
+        String[][] plots = {
+                {" ", "A", "B", "C", "D", "E"},
+                {"1", "O", "X", "X", "O", "X"},
+                {"2", "O", "X", "O", "X", "O"},
+                {"3", "X", "O", "X", "O", "X"},
+                {"4", "O", "X", "O", "X", "O"},
+                {"5", "X", "O", "O", "X", "O"}
+        };
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(5);
+        grid.setVgap(5);
+
+        for (int r = 0; r < plots.length; r++) {
+
+            for (int c = 0; c < plots[r].length; c++) {
+
+                Label lbl = new Label(plots[r][c]);
+
+                lbl.setMinSize(40, 40);
+                lbl.setAlignment(Pos.CENTER);
+
+                String style =
+                        "-fx-border-color: black;" +
+                        "-fx-border-width: 1;" +
+                        "-fx-alignment: center;";
+
+                if (plots[r][c].equals("X")) {
+                    style += "-fx-background-color: #ff9999;";
+                }
+                else if (plots[r][c].equals("O")) {
+                    style += "-fx-background-color: #99ff99;";
+                }
+                else {
+                    style += "-fx-background-color: white;";
+                }
+
+                lbl.setStyle(style);
+
+                grid.add(lbl, c, r);
+            }
+        }
+                
+        Label plotLabel = new Label("Select Plot ID:");
+        
+        ComboBox<String> combo = new ComboBox<>();
+        combo.setPrefWidth(120);
+        
+        combo.getItems().addAll(
+                "1A","2A","3A","4A","5A",
+                "1B","2B","3B","4B","5B",
+                "1C","2C","3C","4C","5C",
+                "1D","2D","3D","4D","5D",
+                "1E","2E","3E","4E","5E"
+        );
+
+        Button assign = new Button("Assign Plot");
+
+        // Disable button until a plot is selected
+        assign.setDisable(true);
+
+        // Enable button when a plot is selected
+        combo.setOnAction(e -> {
+            assign.setDisable(false);
+        });
+
+        assign.setOnAction(e -> {
+
+            System.out.println("Plot "+ combo.getValue()+ " assigned successfully!"
+        );
+
+            // Optional: disable button again after assignment
+            assign.setDisable(true);
+
+            // Optional: clear selection
+            combo.getSelectionModel().clearSelection();
+        });
+        
+        Label statusLabel = new Label();
+
+        VBox root = new VBox(15,title,name,grid,combo,assign, statusLabel);
+        
+        assign.setOnAction(e -> {
+            statusLabel.setText("Plot "+ combo.getValue()+ " assigned successfully!");
+
+            assign.setDisable(true);
+            combo.getSelectionModel().clearSelection();
+        });
+
+        root.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(root,500,500);
+
+        stage.setTitle("Plot Assignment");
+
+        stage.setScene(scene);
+        stage.show();
+    }
+}
