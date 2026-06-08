@@ -1,0 +1,62 @@
+package acemeterysystem;
+
+public class DeceasedDetails {
+
+    protected String name;
+    protected String ic;
+    protected String gender;
+    protected String dob;
+    protected String dod;
+    protected String heirName;
+    protected String heirPhone;
+
+    public DeceasedDetails(String name, String ic, String gender, String dob,
+                           String dod, String heirName, String heirPhone)
+    {
+
+        this.name = name;
+        this.ic = ic;
+        this.gender = gender;
+        this.dob = dob;
+        this.dod = dod;
+        this.heirName = heirName;
+        this.heirPhone = heirPhone;
+    }
+
+    public String getName(){
+        return name;
+    }
+    
+    public String getIc(){ 
+        return ic; 
+    }
+    
+    public String getGender(){ 
+        return gender; }
+    
+    public String getDob(){ 
+        return dob; 
+    }
+    
+    public String getDod(){ 
+        return dod; 
+    }
+    
+    public String getHeirName(){ 
+        return heirName; 
+    }
+    
+    public String getHeirPhone(){ 
+        return heirPhone; 
+    }
+    
+    public String toFileFormat() {
+        return name + "," +
+               ic + "," +
+               gender + "," +
+               dob + "," +
+               dod + "," +
+               heirName + "," +
+               heirPhone;
+    }
+}
