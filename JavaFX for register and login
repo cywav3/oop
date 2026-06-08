@@ -26,16 +26,19 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
+import java.util.ArrayList;
 
 public class javafxregister extends Application{
     
     private String username;
     private String password;
     private Stage stage;
-
+    private String currentuserrole;
     private Scene rolescene;
     private Scene loginscene;
     private Scene registerscene;
+    private Scene viewscene;
 
     @Override
     public void start(Stage stage) {
@@ -44,14 +47,55 @@ public class javafxregister extends Application{
         rolescene();
         login();
         registers();
+        viewdeceasedscene();
 
         stage.setTitle("Registration page");
         stage.setScene(rolescene);
+        
         stage.show();
         
         
     }
+    
+    public void viewdeceasedscene() {
 
+        Label title = new Label("Deceased Viewer");
+
+        Button back = new Button("Back");
+
+        back.setOnAction(e -> stage.setScene(rolescene));
+
+        VBox layout = new VBox(10);
+        layout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(title, back);
+
+        viewscene = new Scene(layout, 400, 300);
+    }
+
+    private void showDeceasedData() {
+
+        ArrayList<Deceased> list;
+
+        if (currentuserrole.equals("admin") || currentuserrole.equals("visitor")) {
+            list = DeceasedView.getAllForAdminOrVisitor();
+        } else {
+            list = DeceasedView.getForGuardian(username);
+        }
+
+        String output = "";
+
+        for (int i = 0; i < list.size(); i++) {
+            Deceased d = list.get(i);
+            output += d.toFileFormat() + "\n";
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Deceased Records");
+        alert.setHeaderText(currentuserrole + " View");
+        alert.setContentText(output.isEmpty() ? "No data found" : output);
+        alert.showAndWait();
+    }
+    
     public void rolescene(){
         Label roleTitle =new Label ("Select role");
 
@@ -62,7 +106,18 @@ public class javafxregister extends Application{
         VBox rolelayout = new VBox(15);
         rolelayout.setAlignment(Pos.CENTER);
         rolelayout.getChildren().addAll(roleTitle, adminbtn, guardianbtn, visitorbtn);
+        
+        adminbtn.setOnAction(e -> {
+            currentuserrole = "admin";
+            showDeceasedData();
+        });
+        
+        visitorbtn.setOnAction(e -> {
+            currentuserrole = "visitor";
+            showDeceasedData();
+        });
         guardianbtn.setOnAction(e -> {
+            currentuserrole = "guardian";
             stage.setScene(loginscene);
         });
 
@@ -108,6 +163,7 @@ public class javafxregister extends Application{
 
             if (usernamefill.equals(username) && passwordfill.equals(password)) {
                 loginmessage.setText("Login Successful!");
+                stage.setScene(viewscene);
             } else {
                 loginmessage.setText("Invalid Username or Password.");
             }
@@ -179,7 +235,7 @@ public class javafxregister extends Application{
         
         VBox registerlayout = new VBox(10);
         registerlayout.setAlignment(Pos.CENTER);
-        registerlayout.getChildren().addAll(registertitle,nameBox,regpassBox,confirmBox,submitbtn,registermessage);
+        registerlayout.getChildren().addAll(registertitle,nameBox,regpassBox,confirmBox,submitbtn,backbtn, registermessage);
 
         registerscene = new Scene(registerlayout, 400,400);
         
