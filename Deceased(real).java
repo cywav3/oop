@@ -14,9 +14,9 @@ public class Deceased extends DeceasedDetails {
         
     public Deceased(String name, String ic, String gender,
                     String dob, String dod,
-                    String heirName, String heirPhone) {
+                    String heirName, String heirPhone,String owner) {
 
-        super(name, ic, gender, dob, dod, heirName, heirPhone);
+        super(name, ic, gender, dob, dod, heirName, heirPhone,owner);
     }
     
     public static void addDeceased(Deceased d) { //store data
@@ -50,9 +50,9 @@ public class Deceased extends DeceasedDetails {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] p = line.split(",");
-                if (p.length == 7) { //check if the information is complete
+                if (p.length == 8) { //check if the information is complete
                     // Rebuild the object and add to list
-                    deceasedList.add(new Deceased(p[0], p[1], p[2], p[3], p[4], p[5], p[6]));
+                    deceasedList.add(new Deceased(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]));
                 }
                 else
                     System.out.println("Your information is incomplete, please try again.");
