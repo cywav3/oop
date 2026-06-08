@@ -1,0 +1,45 @@
+package acemeterysystem;
+
+import java.util.ArrayList;
+public class SearchDeceased {
+
+    //method to search deceased by name
+    public void searchByName(String name, ArrayList<Deceased> list, User user) {
+        boolean found = false;
+        
+        for (Deceased d : list){
+            if (d.getName().equalsIgnoreCase(name)){
+                found = true;
+
+                //admin gets full info
+                if(user instanceof Admin){
+                    System.out.println("FULL INFO: ");
+                    System.out.println("Name: " + d.getName());
+                    System.out.println("Age: " + d.getIc());
+                    System.out.println("Gender: " + d.getGender());
+                    System.out.println("DOB: " + d.getDob());
+                    System.out.println("DOD: " + d.getDod());
+                    System.out.println("Heir: " + d.getHeirName());
+                    System.out.println("Payment: " + (d.isPaid() ? "Done" : "Pending"));
+                    System.out.println("Approved: " + d.isApproved());
+                    System.out.println("Plot: " + d.getPlot());
+
+                //guardian has limited info
+                }else if(user instanceof Guardian){
+                    System.out.println("LIMITED INFO: ");
+                    System.out.println("Name: " + d.getName());
+                    System.out.println("Status: " + d.isApproved());
+
+                //visitors only get to read deceased names
+                }else{
+                    System.out.println("BASIC INFO: ");
+                    System.out.println("Name: " + d.getName());
+                }
+            }
+        }
+        
+        if (!found){
+            System.out.println("Deceased not found.");
+        }
+    }
+}
