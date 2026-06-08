@@ -1,0 +1,124 @@
+package acemeterysystem;
+
+import java.util.*;
+import java.io.*;
+
+public class Deceased extends DeceasedDetails {
+    
+    //make the array list have no limit
+    private static ArrayList<Deceased> deceasedList = new ArrayList<>();
+    private static final String FILE_NAME = "addDeceased.txt";
+    private boolean paid;
+    private boolean approved;
+    private char row;
+    private char col;
+    
+    public Deceased(String name, String ic, String gender,
+                    String dob, String dod,
+                    String heirName, String heirPhone) {
+
+        super(name, ic, gender, dob, dod, heirName, heirPhone);
+        this.paid = false;
+        this.approved = false;
+        this.row = ' ';
+        this.col = ' ';
+    }
+    
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
+    public void setPlot(char row, char col) {
+        this.row = row;
+        this.col = col;
+    }
+    
+    public String getPlot() {
+        return "" + row + col;
+    }
+
+    public static void addDeceased(Deceased d) { //store data
+        deceasedList.add(d);
+    }
+
+    public static ArrayList<Deceased> getList() { //get all data
+        return deceasedList;
+    }
+    
+    @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + "," + paid + "," + approved + "," + row + "," + col;
+    }
+    
+    public static void saveToFile() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_NAME))) {
+            for (int i = 0; i < deceasedList.size(); i++) {
+                Deceased d = deceasedList.get(i);
+                pw.println(d.toFileFormat());
+            }
+            System.out.println("Data successfully updated in file.");
+        } catch (IOException e) {
+            System.out.println("Error saving file: " + e.getMessage());
+        }
+    }
+
+    public static void loadFromFile() {
+        File f = new File(FILE_NAME);
+        if (!f.exists()) 
+            return;
+
+        deceasedList.clear(); // Clear list before loading from file
+
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] p = line.split(",");
+                if (p.length == 7) { //check if the information is complete
+                    // Rebuild the object and add to list
+                    Deceased  d= new Deceased(p[0], p[1], p[2], p[3], p[4], p[5], p[6]);
+                    
+                    d.setPaid(Boolean.parseBoolean(p[7]));
+                    d.setApproved(Boolean.parseBoolean(p[8]));
+                    d.setPlot(p[9].charAt(0), p[10].charAt(0));
+
+                    deceasedList.add(d);
+                }
+                else
+                    System.out.println("Your information is incomplete, please try again.");
+                }
+        } catch (IOException e) {
+            System.out.println("Error loading file: " + e.getMessage());
+        }
+    } 
+    
+}
+
+
+
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
