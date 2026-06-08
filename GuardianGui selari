@@ -1,0 +1,13 @@
+package acemeterysystem;
+
+public class Guardian extends User {
+
+    public Guardian(String username, String pass) {
+        super(username, pass);
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Guardian: " + username);
+    }
+}
