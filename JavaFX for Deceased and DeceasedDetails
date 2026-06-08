@@ -79,13 +79,13 @@ public class JavaFXApp extends Application {
         grid.add(lblHeirPhone, 0, 7);
         grid.add(txtHeirPhone, 1, 7);
 
-        grid.add(lblOwner, 0 , 6);
-        grid.add(txtOwner,1,6);
+        grid.add(lblOwner, 0 , 8);
+        grid.add(txtOwner,1,8);
 
         Label lblStatus = new Label();
        
-        grid.add(hbBtn, 1, 8);
-        grid.add(lblStatus, 1, 9);
+        grid.add(hbBtn, 1, 9);
+        grid.add(lblStatus, 1, 10);
            
         hbBtn.getChildren().add(btnSubmit);
         hbBtn.getChildren().add(btnCancel);    
