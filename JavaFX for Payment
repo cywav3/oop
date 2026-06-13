@@ -15,7 +15,7 @@ public class PaymentUI extends Application {
     @Override
     public void start(Stage stage) {
 
-        Label title = new Label("Payment");
+        Label title = new Label("Online Payment");
         title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold;");
 
         Label instruction1 = new Label("To proceed with application,");
@@ -38,13 +38,16 @@ public class PaymentUI extends Application {
         
         Label accountNumber = new Label("1234567890");
 
-        // Recipient Name
-        Label recipientLabel = new Label("Recipient Name:");
+        // Guardian Name
+        Label recipientLabel = new Label("Guardian Name:");
 
         TextField recipientField = new TextField();
 
         // Upload File
         Label uploadLabel = new Label("Upload Receipt");
+
+        uploadLabel.setMaxWidth(Double.MAX_VALUE);
+        uploadLabel.setAlignment(Pos.CENTER_LEFT);
 
         TextField fileField = new TextField();
         fileField.setEditable(false);
@@ -70,7 +73,7 @@ public class PaymentUI extends Application {
         // Buttons
         Button cancelBtn = new Button("Cancel");
 
-        Button requestBtn = new Button("Request");
+        Button requestBtn = new Button("Submit");
 
         cancelBtn.setPrefWidth(100);
         requestBtn.setPrefWidth(100);
